@@ -3,7 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uaitec - Automação para Clínicas e Salões</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Uaitec - Agente de IA para Clínicas e Salões | Atendimento 24h no WhatsApp</title>
+    <meta name="description" content="Agente de IA que atende, agenda e confirma consultas automaticamente no WhatsApp. 30 dias grátis. Perfeito para clínicas de estética, médicas, odontológicas e salões.">
+    <meta name="keywords" content="automação whatsapp, agente IA clínica, atendimento automático, agendamento automático, clínica estética, salão beleza">
+    <meta name="author" content="Uaitec">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://uaitec.com.br/">
+    <meta property="og:title" content="Uaitec - Agente de IA para Clínicas e Salões">
+    <meta property="og:description" content="Atenda clientes 24h no WhatsApp automaticamente. 30 dias grátis.">
+    <meta property="og:image" content="https://uaitec.com.br/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://uaitec.com.br/">
+    <meta property="twitter:title" content="Uaitec - Agente de IA para Clínicas">
+    <meta property="twitter:description" content="Atenda clientes 24h no WhatsApp automaticamente.">
+    <meta property="twitter:image" content="https://uaitec.com.br/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +75,30 @@
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Custom Styles for Animations -->
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+
+    <!-- Meta Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+
+    <!-- Custom Styles -->
     <style>
         .fade-in {
             opacity: 0;
@@ -87,31 +134,107 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Offset for fixed nav */
+        section[id] {
+            scroll-margin-top: 100px;
+        }
+
+        /* Mobile menu animation */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transform: translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c026d3;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a21caf;
+        }
     </style>
+<base target="_blank">
 </head>
 <body class="font-sans text-gray-800 bg-white selection:bg-lilac-100 selection:text-lilac-900">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-lilac-50">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-lilac-50 transition-all duration-300" id="navbar">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-2">
-                    <img src="logo.png" alt="Uaitec Logo" class="h-16 w-auto rounded-full">
+                    <div class="h-16 w-16 rounded-full bg-gradient-to-br from-lilac-500 to-lilac-700 flex items-center justify-center text-white font-bold text-2xl" id="logo-fallback">
+                        U
+                    </div>
+                    <img src="logo.png" alt="Uaitec Logo" class="h-16 w-auto rounded-full hidden" id="logo-img" onload="this.classList.remove('hidden'); document.getElementById('logo-fallback').classList.add('hidden')" loading="eager">
                     <span class="font-bold text-xl tracking-tight text-gray-900">Uaitec</span>
                 </div>
+                
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#beneficios" class="text-sm font-medium text-gray-600 hover:text-lilac-600 transition-colors">Benefícios</a>
-                    <a href="#como-funciona" class="text-sm font-medium text-gray-600 hover:text-lilac-600 transition-colors">Como Funciona</a>
-                    <a href="#planos" class="text-sm font-medium text-gray-600 hover:text-lilac-600 transition-colors">Planos</a>
-                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" class="inline-flex items-center justify-center px-4 py-2 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200 text-sm">
+                    <a href="#beneficios" class="text-sm font-medium text-gray-600 hover:text-lilac-600 transition-colors relative group">
+                        Benefícios
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lilac-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#como-funciona" class="text-sm font-medium text-gray-600 hover:text-lilac-600 transition-colors relative group">
+                        Como Funciona
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lilac-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#tecnologia" class="text-sm font-medium text-gray-600 hover:text-lilac-600 transition-colors relative group">
+                        Tecnologia
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lilac-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#planos" class="text-sm font-medium text-gray-600 hover:text-lilac-600 transition-colors relative group">
+                        Planos
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lilac-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200 text-sm" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Nav WhatsApp'}); fbq('track', 'Contact');">
                         Falar com consultor
                     </a>
                 </div>
-                <div class="md:hidden">
-                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" class="inline-flex items-center justify-center px-3 py-1.5 rounded-full font-semibold transition-all duration-300 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200 text-xs">
-                        Testar agora
-                    </a>
-                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Menu">
+                    <i data-lucide="menu" class="w-6 h-6 text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden absolute top-20 left-0 right-0 bg-white border-b border-gray-100 shadow-lg">
+            <div class="px-4 py-6 space-y-4">
+                <a href="#beneficios" class="block py-2 text-gray-700 hover:text-lilac-600 font-medium" onclick="closeMobileMenu()">Benefícios</a>
+                <a href="#como-funciona" class="block py-2 text-gray-700 hover:text-lilac-600 font-medium" onclick="closeMobileMenu()">Como Funciona</a>
+                <a href="#tecnologia" class="block py-2 text-gray-700 hover:text-lilac-600 font-medium" onclick="closeMobileMenu()">Tecnologia</a>
+                <a href="#planos" class="block py-2 text-gray-700 hover:text-lilac-600 font-medium" onclick="closeMobileMenu()">Planos</a>
+                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" rel="noopener noreferrer" class="block w-full text-center py-3 rounded-full font-semibold bg-emerald-500 text-white mt-4" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Mobile Nav WhatsApp'}); fbq('track', 'Contact');">
+                    Falar com consultor
+                </a>
             </div>
         </div>
     </nav>
@@ -135,17 +258,28 @@
                         Nosso agente de IA atende, agenda e confirma consultas automaticamente — 24 horas por dia, 7 dias por semana, sem você precisar parar o que está fazendo.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" class="inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200">
+                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Primary'}); fbq('track', 'Contact');">
                             Quero ver funcionando agora <i data-lucide="arrow-right" class="ml-2" width="16" height="16"></i>
                         </a>
-                        <a href="#planos" class="inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-white text-lilac-900 hover:bg-lilac-50 border border-lilac-100 shadow-sm">
+                        <a href="#planos" class="inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-white text-lilac-900 hover:bg-lilac-50 border border-lilac-100 shadow-sm" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Secondary'});">
                             Testar grátis por 30 dias
                         </a>
                     </div>
-                    <div class="mt-8 flex items-center gap-4 text-sm text-gray-500">
-                        <div class="flex -space-x-2">
+                    
+                    <!-- Trust Badges -->
+                    <div class="mt-8 flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                        <div class="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-full">
+                            <i data-lucide="shield-check" class="text-emerald-500" width="16" height="16"></i>
+                            <span class="font-medium">LGPD Compliant</span>
                         </div>
-                        <!--<p>Usado por +500 clínicas no Brasil</p>-->
+                        <div class="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-full">
+                            <i data-lucide="lock" class="text-emerald-500" width="16" height="16"></i>
+                            <span class="font-medium">Dados Criptografados</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-full">
+                            <i data-lucide="award" class="text-emerald-500" width="16" height="16"></i>
+                            <span class="font-medium">SSL Seguro</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -202,7 +336,7 @@
                     <!-- Floating Badge -->
                     <div class="floating-badge absolute top-1/4 -right-4 bg-white p-4 rounded-xl shadow-xl border border-lilac-50 max-w-[180px]">
                         <div class="flex items-center gap-2 mb-2">
-                            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
                             <span class="text-xs font-semibold text-gray-500">Status</span>
                         </div>
                         <p class="text-sm font-bold text-gray-800">Agendamento confirmado</p>
@@ -213,7 +347,7 @@
     </section>
 
     <!-- Combined Pain Points & Solution Section -->
-    <section class="py-16 md:py-24 bg-white">
+    <section id="beneficios" class="py-16 md:py-24 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Chega de perder clientes por falta de resposta</h2>
@@ -284,7 +418,7 @@
             </div>
 
             <div class="mt-12 text-center">
-                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" class="inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200 text-lg">
+                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200 text-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Problem Solution'}); fbq('track', 'Contact');">
                     Quero resolver isso agora <i data-lucide="arrow-right" class="ml-2" width="18" height="18"></i>
                 </a>
             </div>
@@ -293,7 +427,6 @@
 
     <!-- How It Works -->
     <section id="como-funciona" class="py-20 md:py-32 bg-lilac-50/30 relative overflow-hidden">
-        <!-- Decorative background elements -->
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-rose-200/20 rounded-full blur-3xl -z-10"></div>
 
@@ -330,7 +463,6 @@
                         <div class="relative w-20 h-20 rounded-2xl bg-emerald-50 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
                             <i data-lucide="message-circle" class="text-emerald-600 w-10 h-10"></i>
                             
-                            <!-- Floating Chat Bubble Simulation -->
                             <div class="absolute -right-4 -top-2 bg-white p-2 rounded-lg rounded-bl-none shadow-md border border-gray-100 transform rotate-6 group-hover:rotate-12 transition-transform duration-500">
                                 <div class="flex gap-1">
                                     <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
@@ -362,38 +494,145 @@
         </div>
     </section>
 
+    <!-- Technology Section (Credibility) -->
+    <section id="tecnologia" class="py-16 md:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Tecnologia de ponta ao seu alcance</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Usamos as mesmas tecnologias das maiores empresas do mundo, adaptadas para o seu negócio.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                        <i data-lucide="brain" class="text-lilac-600 w-7 h-7"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">IA Avançada</h4>
+                    <p class="text-sm text-gray-600">Processamento de linguagem natural que entende contexto e intenção</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                        <i data-lucide="server" class="text-emerald-600 w-7 h-7"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">Cloud Seguro</h4>
+                    <p class="text-sm text-gray-600">Servidores na nuvem com 99.9% de uptime e backup automático</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                        <i data-lucide="zap" class="text-gold-500 w-7 h-7"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">Resposta Instantânea</h4>
+                    <p class="text-sm text-gray-600">Tempo médio de resposta menor que 2 segundos</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                        <i data-lucide="refresh-cw" class="text-blue-600 w-7 h-7"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">Integração WhatsApp</h4>
+                    <p class="text-sm text-gray-600">API oficial do WhatsApp Business para máxima confiabilidade</p>
+                </div>
+            </div>
+
+            <!-- Security Badges -->
+            <div class="mt-12 flex flex-wrap justify-center gap-6">
+                <div class="flex items-center gap-3 px-5 py-3 bg-emerald-50 rounded-full border border-emerald-100">
+                    <i data-lucide="check-circle" class="text-emerald-600" width="20" height="20"></i>
+                    <span class="font-medium text-emerald-800">Criptografia End-to-End</span>
+                </div>
+                <div class="flex items-center gap-3 px-5 py-3 bg-blue-50 rounded-full border border-blue-100">
+                    <i data-lucide="check-circle" class="text-blue-600" width="20" height="20"></i>
+                    <span class="font-medium text-blue-800">Certificado SSL</span>
+                </div>
+                <div class="flex items-center gap-3 px-5 py-3 bg-purple-50 rounded-full border border-purple-100">
+                    <i data-lucide="check-circle" class="text-purple-600" width="20" height="20"></i>
+                    <span class="font-medium text-purple-800">LGPD Ready</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Target Audience -->
-    <section class="py-16 md:py-24 bg-white">
+    <section class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Feito para quem não tem tempo a perder</h2>
             </div>
             
             <div class="flex flex-wrap justify-center gap-4">
-                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200 text-gray-700 font-medium hover:bg-lilac-50 hover:border-lilac-200 hover:text-lilac-700 transition-colors cursor-default">
-                    <i data-lucide="sparkles" width="18" height="18"></i> Clínicas de Estética
+                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-default">
+                    <i data-lucide="sparkles" width="18" height="18" class="text-lilac-500"></i> Clínicas de Estética
                 </div>
-                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200 text-gray-700 font-medium hover:bg-lilac-50 hover:border-lilac-200 hover:text-lilac-700 transition-colors cursor-default">
-                    <i data-lucide="stethoscope" width="18" height="18"></i> Clínicas Médicas
+                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-default">
+                    <i data-lucide="stethoscope" width="18" height="18" class="text-emerald-500"></i> Clínicas Médicas
                 </div>
-                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200 text-gray-700 font-medium hover:bg-lilac-50 hover:border-lilac-200 hover:text-lilac-700 transition-colors cursor-default">
-                    <i data-lucide="sparkles" width="18" height="18"></i> Consultórios Odontológicos
+                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-default">
+                    <i data-lucide="smile" width="18" height="18" class="text-blue-500"></i> Consultórios Odontológicos
                 </div>
-                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200 text-gray-700 font-medium hover:bg-lilac-50 hover:border-lilac-200 hover:text-lilac-700 transition-colors cursor-default">
-                    <i data-lucide="scissors" width="18" height="18"></i> Salões de Beleza
+                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-default">
+                    <i data-lucide="scissors" width="18" height="18" class="text-rose-500"></i> Salões de Beleza
                 </div>
-                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200 text-gray-700 font-medium hover:bg-lilac-50 hover:border-lilac-200 hover:text-lilac-700 transition-colors cursor-default">
-                    <i data-lucide="sparkles" width="18" height="18"></i> Manicure e Nail Design
+                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-default">
+                    <i data-lucide="hand" width="18" height="18" class="text-gold-500"></i> Manicure e Nail Design
                 </div>
-                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200 text-gray-700 font-medium hover:bg-lilac-50 hover:border-lilac-200 hover:text-lilac-700 transition-colors cursor-default">
-                    <i data-lucide="sparkles" width="18" height="18"></i> Spas e Bem-estar
+                <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-default">
+                    <i data-lucide="heart" width="18" height="18" class="text-rose-400"></i> Spas e Bem-estar
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-lilac-50 to-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Quanto você está deixando na mesa?</h2>
+                <p class="text-gray-600">Calcule quanto dinheiro você perde por não responder aos clientes em tempo real.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-lilac-100">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Clientes perdidos/mês</label>
+                        <input type="number" id="clientes" value="10" min="0" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-lilac-500 focus:ring-2 focus:ring-lilac-200 outline-none transition-all" oninput="calcularROI()">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ticket médio (R$)</label>
+                        <input type="number" id="ticket" value="150" min="0" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-lilac-500 focus:ring-2 focus:ring-lilac-200 outline-none transition-all" oninput="calcularROI()">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Horas gastas/mês</label>
+                        <input type="number" id="horas" value="20" min="0" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-lilac-500 focus:ring-2 focus:ring-lilac-200 outline-none transition-all" oninput="calcularROI()">
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-rose-50 to-orange-50 rounded-2xl p-6 border border-rose-100">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Perda mensal estimada:</p>
+                            <p class="text-3xl font-bold text-rose-600" id="perda">R$ 1.500</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Economia com Uaitec:</p>
+                            <p class="text-3xl font-bold text-emerald-600" id="economia">R$ 1.303</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">*Considerando valor hora do profissional a R$ 50</p>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-200 text-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'ROI Calculator'}); fbq('track', 'Contact');">
+                        Parar de perder dinheiro <i data-lucide="arrow-right" class="ml-2" width="18" height="18"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Comparison Table -->
-    <section class="py-16 md:py-24 bg-gray-50">
+    <section class="py-16 md:py-24 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Por que automatizar faz sentido financeiro</h2>
@@ -444,7 +683,7 @@
     </section>
 
     <!-- Offer Section -->
-    <section id="planos" class="py-16 md:py-24 bg-white">
+    <section id="planos" class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Comece sem risco</h2>
@@ -481,13 +720,38 @@
                     </li>
                 </ul>
 
-                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" class="inline-flex items-center justify-center px-6 py-4 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-gradient-to-r from-gold-400 to-gold-600 text-white shadow-lg shadow-gold-200 hover:shadow-xl w-full text-lg">
+                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-4 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-gradient-to-r from-gold-400 to-gold-600 text-white shadow-lg shadow-gold-200 hover:shadow-xl w-full text-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Primary'}); fbq('track', 'InitiateCheckout');">
                     Quero testar grátis por 30 dias <i data-lucide="arrow-right" class="ml-2" width="16" height="16"></i>
                 </a>
                 
                 <p class="mt-4 text-xs text-gray-400">
                     Sem cartão de crédito. Sem burocracia. Só resultados.
                 </p>
+
+                <!-- Guarantee -->
+                <div class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-600">
+                    <i data-lucide="shield-check" class="text-emerald-500" width="18" height="18"></i>
+                    <span>Garantia de 7 dias: não gostou, devolvemos seu dinheiro</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Capture (Lead Magnet) -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="bg-gradient-to-br from-lilac-50 to-purple-50 rounded-3xl p-8 md:p-12 border border-lilac-100">
+                <i data-lucide="gift" class="w-12 h-12 text-lilac-600 mx-auto mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Baixe grátis: Guia de Atendimento Automático</h3>
+                <p class="text-gray-600 mb-6">Descubra como clínicas aumentam agendamentos em 40% com automação. 15 páginas de conteúdo prático.</p>
+                
+                <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault(); alert('Obrigado! Você receberá o guia no email informado.'); gtag('event', 'generate_lead'); fbq('track', 'Lead');">
+                    <input type="email" placeholder="Seu melhor email" required class="flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:border-lilac-500 focus:ring-2 focus:ring-lilac-200 outline-none transition-all">
+                    <button type="submit" class="px-6 py-3 bg-lilac-600 hover:bg-lilac-700 text-white font-semibold rounded-xl transition-colors whitespace-nowrap">
+                        Receber guia
+                    </button>
+                </form>
+                <p class="text-xs text-gray-500 mt-3">Prometemos não enviar spam. Você pode cancelar a qualquer momento.</p>
             </div>
         </div>
     </section>
@@ -502,56 +766,56 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
                 <!-- FAQ Item 1 -->
                 <div class="border-b border-lilac-100 last:border-0">
-                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none">
-                        <span class="font-semibold text-gray-800 text-lg">Meu cliente vai saber que é um robô?</span>
-                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300"></i>
+                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none group" aria-expanded="false">
+                        <span class="font-semibold text-gray-800 text-lg group-hover:text-lilac-600 transition-colors">Meu cliente vai saber que é um robô?</span>
+                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300 flex-shrink-0"></i>
                     </button>
                     <div class="accordion-content">
-                        <p class="pb-4 text-gray-600 leading-relaxed">O agente é configurado com a linguagem e o nome do seu negócio. Ele soa natural, usa emojis e é cordial — não parece um robô frio de banco.</p>
+                        <p class="pb-4 text-gray-600 leading-relaxed">O agente é configurado com a linguagem e o nome do seu negócio. Ele soa natural, usa emojis e é cordial — não parece um robô frio de banco. Muitos clientes nem percebem que estão falando com uma IA.</p>
                     </div>
                 </div>
                 
                 <!-- FAQ Item 2 -->
                 <div class="border-b border-lilac-100 last:border-0">
-                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none">
-                        <span class="font-semibold text-gray-800 text-lg">Preciso aprender algum sistema novo?</span>
-                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300"></i>
+                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none group" aria-expanded="false">
+                        <span class="font-semibold text-gray-800 text-lg group-hover:text-lilac-600 transition-colors">Preciso aprender algum sistema novo?</span>
+                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300 flex-shrink-0"></i>
                     </button>
                     <div class="accordion-content">
-                        <p class="pb-4 text-gray-600 leading-relaxed">Não. Você usa apenas o WhatsApp, que já conhece. Toda a gestão é feita através de comandos simples no próprio chat.</p>
+                        <p class="pb-4 text-gray-600 leading-relaxed">Não. Você usa apenas o WhatsApp, que já conhece. Toda a gestão é feita através de comandos simples no próprio chat. É como conversar com um assistente humano.</p>
                     </div>
                 </div>
                 
                 <!-- FAQ Item 3 -->
                 <div class="border-b border-lilac-100 last:border-0">
-                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none">
-                        <span class="font-semibold text-gray-800 text-lg">E se eu quiser cancelar?</span>
-                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300"></i>
+                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none group" aria-expanded="false">
+                        <span class="font-semibold text-gray-800 text-lg group-hover:text-lilac-600 transition-colors">E se eu quiser cancelar?</span>
+                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300 flex-shrink-0"></i>
                     </button>
                     <div class="accordion-content">
-                        <p class="pb-4 text-gray-600 leading-relaxed">Sem fidelidade. Você cancela quando quiser, sem multa e sem letras miúdas.</p>
+                        <p class="pb-4 text-gray-600 leading-relaxed">Sem fidelidade. Você cancela quando quiser, sem multa e sem letras miúdas. Basta nos avisar pelo WhatsApp e faremos a cancelamento imediato.</p>
                     </div>
                 </div>
                 
                 <!-- FAQ Item 4 -->
                 <div class="border-b border-lilac-100 last:border-0">
-                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none">
-                        <span class="font-semibold text-gray-800 text-lg">Funciona para qualquer tipo de agendamento?</span>
-                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300"></i>
+                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none group" aria-expanded="false">
+                        <span class="font-semibold text-gray-800 text-lg group-hover:text-lilac-600 transition-colors">Funciona para qualquer tipo de agendamento?</span>
+                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300 flex-shrink-0"></i>
                     </button>
                     <div class="accordion-content">
-                        <p class="pb-4 text-gray-600 leading-relaxed">Sim — consultas, procedimentos estéticos, cortes, manicure. Configuramos conforme seus serviços, durações e valores.</p>
+                        <p class="pb-4 text-gray-600 leading-relaxed">Sim — consultas, procedimentos estéticos, cortes, manicure. Configuramos conforme seus serviços, durações e valores. O agente aprende sua lógica de negócio.</p>
                     </div>
                 </div>
                 
                 <!-- FAQ Item 5 -->
                 <div class="border-b border-lilac-100 last:border-0">
-                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none">
-                        <span class="font-semibold text-gray-800 text-lg">Quanto tempo leva para configurar?</span>
-                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300"></i>
+                    <button class="accordion-header w-full py-4 flex justify-between items-center text-left focus:outline-none group" aria-expanded="false">
+                        <span class="font-semibold text-gray-800 text-lg group-hover:text-lilac-600 transition-colors">Quanto tempo leva para configurar?</span>
+                        <i data-lucide="chevron-down" class="text-gray-400 transition-transform duration-300 flex-shrink-0"></i>
                     </button>
                     <div class="accordion-content">
-                        <p class="pb-4 text-gray-600 leading-relaxed">Em até 48 horas após recebermos suas informações, seu agente já estará funcionando e atendendo clientes.</p>
+                        <p class="pb-4 text-gray-600 leading-relaxed">Em até 48 horas após recebermos suas informações, seu agente já estará funcionando e atendendo clientes. Fazemos toda a configuração técnica para você.</p>
                     </div>
                 </div>
             </div>
@@ -567,7 +831,7 @@
             <p class="text-xl text-white/90 mb-10 drop-shadow-sm font-medium">
                 ...e talvez não esteja sendo respondido. Não deixe dinheiro na mesa.
             </p>
-            <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" class="inline-flex items-center justify-center px-10 py-4 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-white text-emerald-700 hover:bg-gray-50 shadow-xl shadow-emerald-900/20 text-lg">
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20agente%20de%20IA%20para%20cl%C3%ADnicas" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-10 py-4 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1 bg-white text-emerald-700 hover:bg-gray-50 shadow-xl shadow-emerald-900/20 text-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Final CTA'}); fbq('track', 'Contact');">
                 Ativar meu agente agora <i data-lucide="arrow-right" class="ml-2" width="16" height="16"></i>
             </a>
         </div>
@@ -575,14 +839,30 @@
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                <img src="logo.png" alt="Uaitec Logo" class="h-16 w-auto rounded-full">
-                <span class="font-bold text-xl text-white">Uaitec</span>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="h-12 w-12 rounded-full bg-gradient-to-br from-lilac-500 to-lilac-700 flex items-center justify-center text-white font-bold text-xl">
+                        U
+                    </div>
+                    <span class="font-bold text-xl text-white">Uaitec</span>
+                </div>
+                
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Instagram">
+                        <i data-lucide="instagram" width="20" height="20"></i>
+                    </a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="LinkedIn">
+                        <i data-lucide="linkedin" width="20" height="20"></i>
+                    </a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Email">
+                        <i data-lucide="mail" width="20" height="20"></i>
+                    </a>
+                </div>
             </div>
             
-            <div class="text-sm text-center md:text-right">
-                <p class="mb-2">Automação de atendimento para clínicas e salões</p>
+            <div class="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <p>Automação de atendimento para clínicas e salões</p>
                 <p>&copy; 2026 Uaitec. Todos os direitos reservados.</p>
             </div>
         </div>
@@ -604,32 +884,92 @@
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // Accordion Logic
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let menuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.add('open');
+                menuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6 text-gray-700"></i>';
+            } else {
+                mobileMenu.classList.remove('open');
+                menuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6 text-gray-700"></i>';
+            }
+            lucide.createIcons();
+        });
+
+        function closeMobileMenu() {
+            menuOpen = false;
+            mobileMenu.classList.remove('open');
+            menuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6 text-gray-700"></i>';
+            lucide.createIcons();
+        }
+
+        // Close mobile menu on resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Accordion Logic (Independent - doesn't close others)
         document.querySelectorAll('.accordion-header').forEach(button => {
             button.addEventListener('click', () => {
                 const content = button.nextElementSibling;
                 const icon = button.querySelector('i');
+                const isOpen = content.style.maxHeight;
                 
-                // Toggle current
-                if (content.style.maxHeight) {
+                if (isOpen) {
                     content.style.maxHeight = null;
                     content.classList.remove('open');
                     icon.style.transform = 'rotate(0deg)';
-                    button.querySelector('span').classList.remove('text-lilac-600');
+                    button.setAttribute('aria-expanded', 'false');
                 } else {
-                    // Close others (optional, but good UX)
-                    document.querySelectorAll('.accordion-content').forEach(c => {
-                        c.style.maxHeight = null;
-                        c.classList.remove('open');
-                    });
-                    document.querySelectorAll('.accordion-header i').forEach(i => i.style.transform = 'rotate(0deg)');
-                    document.querySelectorAll('.accordion-header span').forEach(s => s.classList.remove('text-lilac-600'));
-
                     content.style.maxHeight = content.scrollHeight + "px";
                     content.classList.add('open');
                     icon.style.transform = 'rotate(180deg)';
-                    button.querySelector('span').classList.add('text-lilac-600');
+                    button.setAttribute('aria-expanded', 'true');
                 }
+            });
+        });
+
+        // ROI Calculator
+        function calcularROI() {
+            const clientes = parseInt(document.getElementById('clientes').value) || 0;
+            const ticket = parseInt(document.getElementById('ticket').value) || 0;
+            const horas = parseInt(document.getElementById('horas').value) || 0;
+            
+            const perda = clientes * ticket;
+            const custoHoras = horas * 50; // R$50/hora
+            const totalPerda = perda + custoHoras;
+            const economia = totalPerda - 197; // Menos o custo do Uaitec
+            
+            document.getElementById('perda').textContent = 'R$ ' + totalPerda.toLocaleString('pt-BR');
+            document.getElementById('economia').textContent = 'R$ ' + Math.max(0, economia).toLocaleString('pt-BR');
+        }
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Track all CTA clicks
+        document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+            link.addEventListener('click', () => {
+                console.log('WhatsApp CTA clicked');
             });
         });
     </script>
